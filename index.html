@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Personagem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        #personagem {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            max-width: 400px;
+            text-align: left;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Personagem Aleatório</h1>
+    <button onclick="gerarPersonagem()">Gerar Personagem</button>
+    <div id="personagem">
+        <h2>Ficha do Personagem</h2>
+        <p id="nome"></p>
+        <p id="raca"></p>
+        <p id="classe"></p>
+        <div id="atributos"></div>
+        <p id="descricao"></p>
+    </div>
+
+    <script>
+        // Dados para gerar personagens
+        const nomes = ["Aramil", "Eldrin", "Fira", "Tarek", "Lyra", "Orin", "Mira", "Vulcan"];
+        const racas = ["Humano", "Elfo", "Anão", "Orc", "Draconiano", "Tiefling"];
+        const classes = ["Guerreiro", "Mago", "Arqueiro", "Clérigo", "Bardo", "Ladino"];
+        const atributos = ["Força", "Destreza", "Constituição", "Inteligência", "Sabedoria", "Carisma"];
+
+        // Função para gerar um personagem
+        function gerarPersonagem() {
+            const nome = nomes[Math.floor(Math.random() * nomes.length)];
+            const raca = racas[Math.floor(Math.random() * racas.length)];
+            const classe = classes[Math.floor(Math.random() * classes.length)];
+
+            // Atributos aleatórios entre 1 e 20
+            let stats = {};
+            atributos.forEach(atributo => {
+                stats[atributo] = Math.floor(Math.random() * 20) + 1;
+            });
+
+            const descricao = `${nome} é um ${classe.toLowerCase()} ${raca.toLowerCase()} com habilidades únicas.`;
+
+            // Exibir o personagem na página
+            document.getElementById("nome").innerText = `Nome: ${nome}`;
+            document.getElementById("raca").innerText = `Raça: ${raca}`;
+            document.getElementById("classe").innerText = `Classe: ${classe}`;
+            document.getElementById("descricao").innerText = `Descrição: ${descricao}`;
+
+            const atributosDiv = document.getElementById("atributos");
+            atributosDiv.innerHTML = "<h3>Atributos:</h3>";
+            for (const [key, value] of Object.entries(stats)) {
+                atributosDiv.innerHTML += `<p>${key}: ${value}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
